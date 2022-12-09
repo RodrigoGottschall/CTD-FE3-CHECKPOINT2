@@ -1,36 +1,41 @@
+import {
+  createBrowserRouter,
+  RouterProvider,
+  } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import { Layout } from "./Components/Layout";
 import Home from "./Routes/Home";
 import Login from "./Routes/Login";
-import Detail from "./Routes/Detail";
+
 
 function App() {
-  const appRouter = createBrowserRouter([
+
+  const appRouter = createBrowserRouter([   
     {
-      path: '',
-      element: <DefaultLayout />,
+      path: '', 
+      element: <Layout />,
       children: [
         {
-          path: 'home',
-          element: <Home />
+          path: '',
+          element: <Home/>
+        },
+        {
+          path: '*',
+          loader: () => redirect('')
         },
         {
           path: 'login',
-          element: <Login />
-        },
-        {
-          path: 'detail',
-          element: <Detail />
-        }
+          element: <Login/>          
+        }       
       ]
-    }
-
+    }    
   ])
 
-  return (
+  return (    
     <RouterProvider router={appRouter} />
-  )
+  );
 }
 
-
-export default App
+export default App;
